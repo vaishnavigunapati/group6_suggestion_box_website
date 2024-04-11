@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Suggestions</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa; /* Fallback background color */
+            background-image: linear-gradient(to bottom right, #3498db, #9b59b6); /* Gradient background */
+            color: #333333;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            height: 100vh; /* Full viewport height */
+            display: flex;
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+        }
+
+        .container {
+            width: 80%;
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 600px; /* Limit maximum width */
+        }
+
+        h1 {
+            color: #f41b1b; /* White color for headings */
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            text-align: left;
+        }
+
+        li {
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
+            border-radius: 4px;
+        }
+
+        li:hover {
+            background-color: rgba(255, 255, 255, 1); /* Full white on hover */
+        }
+
+        strong {
+            color: #007bff; /* Blue color for suggestion titles */
+        }
+
+        .toggle-description {
+            color: #007bff; /* Blue color for toggle description links */
+            cursor: pointer;
+        }
+
+        .description {
+            display: none;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Suggestions</h1>
+        <ul>
+            {% for suggestion in suggestions %}
+                <li>
+                    <strong>{{ suggestion.title }}</strong>
+                    <span class="toggle-description" data-description-id="{{ suggestion.id }}"> (Click to show description)</span>
+                    <div id="description-{{ suggestion.id }}" class="description">
+                        {{ suggestion.description }}
+                    </div>
+                </li>
+            {% empty %}
+                <li>No suggestions yet.</li>
+            {% endfor %}
+        </ul>
+        <a href="{% url 'suggestion_submit' %}">Submit a Suggestion</a>
+    </div>
+
+    <script>
+        const toggleDescriptionLinks = document.querySelectorAll('.toggle-description');
+        toggleDescriptionLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                const suggestionId = link.getAttribute('data-description-id');
+                const descriptionElement = document.getElementById(description-${suggestionId});
+                if (descriptionElement.style.display === 'none') {
+                    descriptionElement.style.display = 'block';
+                    link.textContent = ' (Click to hide description)';
+                } else {
+                    descriptionElement.style.display = 'none';
+                    link.textContent = ' (Click to show description)';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
